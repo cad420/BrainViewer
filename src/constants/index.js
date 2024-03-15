@@ -1,0 +1,11 @@
+export default {
+  // ms between mousedown and mouseup
+  READ_NEURON_NUMS: 10,
+  EPSILON: 200,
+  DEFAULT_SURFACE_OPACITY: 0.2,
+  DEFAULT_REGION_OPACITY: 1.0,
+  PI: 3.14,
+  MAX_REQUEST_NUM: 500,
+  HIGHLIGHT_OPACITY_THRESHOLD: 0.7,
+  MAX_FRAME_NUM: 1000
+}
