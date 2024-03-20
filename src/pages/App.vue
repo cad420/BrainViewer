@@ -254,10 +254,10 @@
   neuronGroup.scale.setScalar(0.001)
 
   let surfaceMat = baseMat.clone()
-  surfaceMat.depthWrite = true
+  surfaceMat.depthWrite = false
   surfaceMat.depthTest = true
   surfaceMat.transparent = true
-  loadMesh('./model/square.obj', surfaceMat, surfaceGroup)
+  loadMesh('./model/texture.obj', surfaceMat, surfaceGroup)
   scene.add(surfaceGroup)
 
 
@@ -661,12 +661,12 @@
       }
     }
 
-    // if (loadTexture && textures.length) {
-    //   const texture = textures[(neuronFilter.value.frame)%CONSTANTS.MAX_FRAME_NUM]
-    //   for (const child of surfaceGroup.children) {
-    //     child.material.map = texture
-    //   }
-    // }
+    if (loadTexture && textures.length) {
+      const texture = textures[(neuronFilter.value.frame)%CONSTANTS.MAX_FRAME_NUM]
+      for (const child of surfaceGroup.children) {
+        child.material.map = texture
+      }
+    }
     renderer.render(scene, camera)
   }
 

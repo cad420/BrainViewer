@@ -9,6 +9,7 @@
     renderedNum.value = props.neuronFilter.dois.length
   }
   const play = () => {
+    if (!simulationData.value) return
     props.neuronFilter.playing = !props.neuronFilter.playing
   }
   const simulationDataOption = [
@@ -19,6 +20,17 @@
     {
       label: 'MeshColumn_layer6_data',
       value: 6
+    }
+  ]
+
+  const simulationTargetOption = [
+    {
+      label: 'Whole Brain',
+      value: false,
+    },
+    {
+      label: 'Discrete Regions',
+      value: true,
     }
   ]
   const simulationData = ref('')
@@ -51,8 +63,8 @@
   })
 </script>
 <template>
-  <el-form :model="neuronFilter" label-width="100px" class="white">
-    <el-form-item label="Surface:">
+  <el-form :model="neuronFilter" label-width="150px" class="white">
+    <el-form-item label="Surface-Visibility:">
       <el-switch 
         v-model="neuronFilter.visibility.surface">
       </el-switch>
@@ -66,7 +78,7 @@
         show-input
       ></el-slider>
     </el-form-item>
-    <el-form-item label="Region:">
+    <el-form-item label="Region-Visibility:">
       <el-switch 
         v-model="neuronFilter.visibility.region">
       </el-switch>
@@ -80,12 +92,18 @@
         show-input
       ></el-slider>
     </el-form-item>
-    <el-form-item label="Simulation:">
-      <el-switch 
-        v-model="neuronFilter.voltage">
-      </el-switch>
+    <el-form-item label="Simulation-Target:">
+      <el-select v-model="neuronFilter.voltage"
+                 placeholder="select target">
+        <el-option
+          v-for="(item, index) in simulationTargetOption"
+          :value="item.value"
+          :label="item.label"
+          :key="index"
+        ></el-option>
+      </el-select>
     </el-form-item>
-    <el-form-item label="Source:">
+    <el-form-item label="DataSource:">
       <el-select v-model="simulationData"
                  @change="selectSimulationData"
                  placeholder="select simulationData">
@@ -113,6 +131,7 @@
           :max="neuronFilter.maxFrame - 1"
           :step="1"
           :show-tooltip="false"
+          :disabled="!simulationData"
         ></el-slider>
       </div>
     </el-form-item>
